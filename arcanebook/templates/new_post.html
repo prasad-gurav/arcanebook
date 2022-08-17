@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block newPost %}
+        <div class="new-post-container ">
+            <form action="new-post-upload" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-6 ">
+                    <label for="blog-title" class="my-2">Title</label>
+                    <input type="text" class="form-control" name="blog-title" id="blog-title" placeholder="Title For Your Post">
+                </div>
+                <div class="mb-6 my-2">
+                    {{form.media}}
+                    {{form.as_p}}
+                </div>
+                <div class="mb-6 my-3">
+                    <input type="file" name="image">
+                </div>
+                <button type="submit" class="btn btn-primary">POST</button>
+            </form>
+        </div>
+    {% endblock %}
+</body>
+</html>

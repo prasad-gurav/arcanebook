@@ -1,0 +1,92 @@
+{% extends 'home.html' %}
+
+{% block start %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="csrf" id="csrf" value="{{csrf_token}}">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="Username" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="Password" placeholder="name@example.com">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="login()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Arcanebook</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+          
+
+                <li class="nav-item mx-2">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" id="new-post" href="/new-post">New Post</a>
+                    {% else %}
+                    <a class="nav-link disabled" >New Post</a>
+                    {% endif %}
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <!-- Button LOGOUT modal -->
+                    <button type="button" class="btn btn-outline-danger" >
+                        LOGOUT
+                    </button>
+                    {% else %}
+                    <!-- Button LOGIN modal -->
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        LOGIN
+                    </button>
+                    {% endif %}
+                </li>
+            </form>
+        </div>
+    </div>
+</nav>
+{% block newPost %}
+{% endblock %}
+{% endblock %}
+
+
+{% block blog %}
+{% for blog in blogs %}
+<div class="card" style="width: 18rem;">
+    <div class="img">
+    <img src="media/{{blog.image}}" class="card-img-top" alt="..."></div>
+    <div class="card-body">
+        <h5 class="card-title">{{blog.title}}</h5>
+        <p class="card-text">{{blog.discription|safe}}</p>
+        <a href="#" class="btn btn-primary">READ MORE</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+

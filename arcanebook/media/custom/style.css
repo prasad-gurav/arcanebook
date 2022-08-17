@@ -1,0 +1,51 @@
+.container{
+    display: flex;
+    gap: 30px;
+}
+
+.card-title{
+    height: 72px;
+}
+.card-text{
+    line-height: 1.2;
+    height: 35px;
+    overflow: hidden;
+    font-family: arial;
+    font-size: 14px;
+}
+
+.card .img{
+    height: 192px;
+    overflow-x: hidden;
+ 
+}
+
+.card .img::-webkit-scrollbar{
+    display: none;
+}
+
+
+/* LOGIN MODAL  */
+.modal-dialog {
+    max-width: 550px;
+}
+
+
+
+/* NEW POST  */
+
+
+#new-post{
+    cursor: pointer;
+    color: white;
+
+}
+#new-post:hover{
+    color: #68a3fc;
+}  
+.new-post-container{
+    width: 900px;
+    margin: auto;
+    padding: 50px 0px;
+}
+
