@@ -11,8 +11,12 @@ def home(request):
 
     return render(request,"base.html",{'blogs':blogs})
 
-
-
+def post(request,slug):
+    try:
+        post = BlogModel.objects.filter(slug=slug).first()
+    except Exception as e:
+        print(e)
+    return render(request,'post.html',{'post':post})
 
 def new_post(request):
     context = {'form':BlogForm}

@@ -2,7 +2,7 @@
 
 {% block start %}
 
-<!-- Modal -->
+<!-- Login Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -21,14 +21,77 @@
                     <input type="password" class="form-control" id="Password" placeholder="name@example.com">
                 </div>
             </div>
+                  <!-- Button LOGIN modal -->
+                  <button type="button" class="btn btn-outline-primary px-3" data-bs-toggle="modal" data-bs-target="#signUP">SignUp</button>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="login()">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="login()">Login</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- SignUp Modal -->
+<div class="modal fade" id="signUP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="csrf" id="csrf" value="{{csrf_token}}">
+                <div class="input-group">
+                    <span class="input-group-text">First and last name</span>
+                    <input type="text" aria-label="First name" name="first_name" id="first_name" class="form-control">
+                    <input type="text" aria-label="Last name" name="last_name" id="last_name" class="form-control">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Username</label>
+                    <input type="email" class="form-control" id="create-Username" name="username" >
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="create-Password" name="password" >
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirm-create-Password" >
+                </div>
+            </div>
+      
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="signup()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal  -->
+
+<div class="modal fade" id="logout" tabindex="-1" aria-labelledby="logout" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{request.user}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="csrf" id="csrf" value="{{csrf_token}}">
+          Are you sure ? Do you want to logout ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="logout()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -40,7 +103,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
           
 
@@ -50,13 +113,15 @@
                     {% else %}
                     <a class="nav-link disabled" >New Post</a>
                     {% endif %}
+                
                 </li>
             </ul>
+            
             <form class="d-flex" role="search">
                 <li class="nav-item">
                     {% if user.is_authenticated %}
                     <!-- Button LOGOUT modal -->
-                    <button type="button" class="btn btn-outline-danger" >
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#logout">
                         LOGOUT
                     </button>
                     {% else %}
@@ -72,6 +137,10 @@
 </nav>
 {% block newPost %}
 {% endblock %}
+
+{% block post %}
+
+{% endblock %}
 {% endblock %}
 
 
@@ -83,7 +152,7 @@
     <div class="card-body">
         <h5 class="card-title">{{blog.title}}</h5>
         <p class="card-text">{{blog.discription|safe}}</p>
-        <a href="#" class="btn btn-primary">READ MORE</a>
+        <a href="post/{{blog.slug}}" class="btn btn-primary">READ MORE</a>
     </div>
 </div>
 {% endfor %}

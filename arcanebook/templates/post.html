@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block post %}
+
+<div class="post-container">
+
+    <figure>
+        <blockquote class="blockquote">
+  
+          <h2>{{post.title}}</h2>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            {{post.user}}<cite title="Source Title"> Uploaded at {{post.created_at}}</cite>
+        </figcaption>
+      </figure>
+
+      <div class="content-img">
+           <img src="/media/{{post.image}}" class="figure-img img-fluid rounded" alt="...">
+       </div>
+       <div class="content-blog">
+        {{post.content|safe}}
+       </div>
+</div>
+{% endblock %}
+
+

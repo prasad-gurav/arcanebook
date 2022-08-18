@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     path('',views.home,name='homePage'),
     path('new-post',views.new_post,name='newPost'),
-    path('new-post-upload',views.upload_new_post,name='New Post Upload')
+    path('new-post-upload',views.upload_new_post,name='upload new post'),
+    path('post/<slug>',views.post,name='Full Post'),
 ]
 
