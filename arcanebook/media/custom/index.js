@@ -1,4 +1,4 @@
-
+// PROFILE JS 
 
 // LogIn function 
 function login(){
@@ -7,9 +7,22 @@ function login(){
     var csrf = document.querySelector('#csrf').value
     
     if(username == '' || password == ''){
-        console.log("feilds must not be empty ")
-        alert("Feilds must not be empty")
-    }
+
+            if(document.querySelector('.login-modalBody').querySelector('.alert')){
+                
+                console.log("feilds must not be empty ")
+            }
+
+            else{
+                $('.loginmodal').before(`<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>feilds must not be empty!</strong> You should check in on some of those fields below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`)
+                
+
+            }
+        }
+        
 
     var data  = {
         'username':username,
@@ -31,6 +44,9 @@ function login(){
         console.log(response)
         if(response.status == 200){
             window.location.replace('/')
+            $('.loginmodal').before(`<div class="alert alert-success" role="alert">
+            You Have succesfully logged in !
+          </div>`)
         }
     })
 }
@@ -52,9 +68,18 @@ function signup(){
     
 
     if(username == '' || password == ''){
-        console.log("feilds must not be empty ")
-        alert("Feilds must not be empty")
-    }
+        if(document.querySelector('.signup-modalBody').querySelector('.alert')){
+                
+            console.log("feilds must not be empty ")
+        }
+
+        else{
+            $('.signupmodal').before(`<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>feilds must not be empty!</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`)
+        
+        }}
     if (!password==confirm_password){
         console.log("Confirm Your Password again")
         alert("Confirm Your Password again !")
@@ -104,7 +129,12 @@ function logout(){
     .then(response => {
         console.log(response)
         if(response.status == 200){
+            $('body').before(`<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>feilds must not be empty!</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`)
             window.location.replace('/')
+            
         }
     })
 }

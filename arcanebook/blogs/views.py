@@ -1,8 +1,11 @@
+from http.client import HTTPResponse
 from importlib.resources import contents
 from multiprocessing import context
 from django.shortcuts import render
 from django.shortcuts import render,redirect
 from .models import BlogModel
+from .models import profile as myprofile
+from django.contrib.auth.models import User
 from .forms import BlogForm
 
 # Create your views here.
@@ -37,3 +40,15 @@ def upload_new_post(request):
     except Exception as e:
         print(e)       
     return redirect('/')
+
+
+def profile(request):
+    if request.user is not None:
+        user_profile = myprofile.objects.filter(user=request.user).first()
+        blogs = BlogModel.objects.filter(user=request.user)
+        context = {'profile':user_profile,
+                    'post':blogs}
+    else:
+        print("Login First")
+        return HTTPResponse("You Need to login first.")
+    return render(request,'profile.html',context)

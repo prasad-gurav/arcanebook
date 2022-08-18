@@ -2,6 +2,7 @@ from dataclasses import field
 from distutils.command.upload import upload
 from operator import mod
 from pyexpat import model
+from tkinter.tix import Tree
 from turtle import title
 from django.db import models
 from django.contrib.auth.models import User
@@ -28,3 +29,16 @@ class BlogModel(models.Model,):
     def save(self,*args,**kwargs):
         self.slug = slug_generator(self.title)
         super(BlogModel,self).save(*args,**kwargs)
+
+
+
+class profile(models.Model):
+    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.CASCADE)
+    profilePic = models.ImageField(upload_to='profile',null=True,blank=True)
+    proffesion = models.CharField(max_length=100,null=True,blank=True)
+    about = models.TextField(null=True,blank=True)
+    # social links 
+    instagram = models.TextField(null=True,blank=True)
+    twitter = models.TextField(null=True,blank=True)
+    linkedin = models.TextField(null=True,blank=True)
+    city = models.CharField(max_length=30,null=True,blank=True)
