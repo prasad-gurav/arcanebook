@@ -31,11 +31,12 @@ def upload_new_post(request):
             form = BlogForm(request.POST)
             image = request.FILES['image']
             title = request.POST.get("blog-title")
+            disc = request.POST.get("discription")
             user = request.user
 
             if form.is_valid():
                 content = form.cleaned_data['content']
-            blog_obj = BlogModel.objects.create(user=user,title=title,image=image,content=content)
+            blog_obj = BlogModel.objects.create(user=user,title=title,image=image,content=content,discription=disc)
             print(blog_obj)
     except Exception as e:
         print(e)       
