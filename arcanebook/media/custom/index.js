@@ -23,7 +23,9 @@ function login(){
             }
         }
         
+    else{
 
+   
     var data  = {
         'username':username,
         'password':password
@@ -49,6 +51,7 @@ function login(){
           </div>`)
         }
     })
+    }
 }
 
 
@@ -80,6 +83,7 @@ function signup(){
         </div>`)
         
         }}
+    else{    
     if (!password==confirm_password){
         console.log("Confirm Your Password again")
         alert("Confirm Your Password again !")
@@ -109,7 +113,7 @@ function signup(){
         if(response.status == 200){
             window.location.replace('/')
         }
-    })
+    })}
 }
 
 
